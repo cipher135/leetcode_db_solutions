@@ -21,3 +21,11 @@ FETCH FIRST x PERCENT ROWS ONLY
 ROWNUM >=< x
 */
 
+-- https://leetcode.com/problems/customers-who-never-order/
+/*
+SELECT * FROM table1 t1, table2 t2; and 
+SELECT * FROM table1 t1 CROSS JOIN table2 t2; are same
+*/
+select name customers from customers where id not in (
+select c.id from customers c, orders o where  c.id = o.customerId);
+

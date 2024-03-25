@@ -4,6 +4,25 @@ select max(salary) as "SecondHighestSalary" from employee where salary < (select
 -- 2nd way
 select ifnull((select distinct salary from employee order by salary desc limit 1,1), null) as SecondHighestSalary;
 
+
+--- https://leetcode.com/problems/nth-highest-salary/
+
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+SET N=N-1;
+  RETURN (
+      # Write your MySQL query statement below.
+    select distinct salary from employee order by salary desc limit N,1
+
+  );
+END
+
+/*
+LIMIT m, n; means, retrieve n rows starting from m+1th row
+LIMIT 5, 10; means, 10 rows starting from 6th rows
+LIMIT 0, 10; means, first 10 rows
+*/
+
 -- https://leetcode.com/problems/employees-earning-more-than-their-managers/
 select e.name as Employee from employee e, employee m where m.id=e.managerId and e.salary > m.salary;
 
